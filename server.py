@@ -115,7 +115,9 @@ def send_command(command):
         "headlights_on": "Фары включены",
         "headlights_off": "Фары выключены",
         "hazard_lights_on": "Аварийная сигнализация включена",
-        "hazard_lights_off": "Аварийная сигнализация выключена"
+        "hazard_lights_off": "Аварийная сигнализация выключена", 
+        "parking_lights_on": "Габаритные огни включены", 
+        "parking_lights_off": "Габаритные огни выключены"
     }
     # Вывод выполненной команды
     if command in command_messages:
