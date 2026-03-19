@@ -1,7 +1,7 @@
 from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
 import cv2
-from time import time
+from datetime import datetime
 
 app = Flask(__name__) # Создание веб-приложения
 CORS(app) # Настройка CORS
@@ -62,41 +62,12 @@ def get_telemetry():
         "battery": 85,  # Уровень заряда батареи в процентах
         "obstacle_distance": 150  # Расстояние до препятствия в см (с ультразвукового датчика)
     }
+    now = datetime.now()
     return jsonify({
         "status": "ok", 
         "data": data, # Основные данные
-        "timestamp": time() # Временная метка для синхронизации
+        "timestamp": now.strftime("%H:%M:%S") # Временная метка для синхронизации
     })
-
-# # --- Эндпоинт предустановленных режимов ---
-# @app.route("/mode/<mode_name>")
-# def set_mode(mode_name):
-#     """
-#     Установка предустановленного режима работы.
-#     Принимает имя режима через URL (например, /mode/parking).
-
-#     Аргумент:
-#         mode_name (str): имя режима из словаря modes
-#     """
-#     # Словарь режимов: каждому режиму — список команд для выполнения
-#     modes = {
-#         'parking': ['parking_lights_on', 'stop'],  # Парковка: габариты + остановка
-#         'offroad': ['low_beam_on', 'parking_lights_on'],  # Бездорожье: ближний свет + габариты
-#         'emergency': ['hazard_lights_on', 'stop']  # Аварийный: аварийка + остановка
-#     }
-#     if mode_name in modes:
-#         # Выполняем все команды режима последовательно
-#         for command in modes[mode_name]:
-#             send_command(command)
-#         return jsonify({
-#             "status": "ok", 
-#             "mode": mode_name
-#         })
-#     else: 
-#         return jsonify({
-#             "status": "error", 
-#             "message": "Неизвестный режим"
-#         }), 400
 
 @app.route("/<command>")
 def send_command(command):
