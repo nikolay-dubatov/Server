@@ -55,8 +55,8 @@ def get_telemetry():
         "data": data, # Основные данные
         "timestamp": now.strftime("%H:%M:%S") # Временная метка для синхронизации
     })
-@app.route('/car/<command>')
-def move_car(command):
+@app.route('/car/commands')
+def move_car():
     commands = [
         "stop", 
         "left", 
@@ -64,6 +64,7 @@ def move_car(command):
         "forward", 
         "backward"
     ]
+    command = request.args.get('command')
     if command in commands:
         return jsonify({
             "status": "ok", 
@@ -74,13 +75,14 @@ def move_car(command):
             "status": "error", 
             "message": f"Неизвестная команда: {command}"
         }), 400
-@app.route("/car/<speed>")
-def select_speed(speed):
+@app.route("/car/speed")
+def select_speed():
     levels = [
         "low", 
         "medium", 
         "high"
     ]
+    speed = request.args.get('level')
     if speed in levels: 
         return jsonify({
             "status": "ok", 
@@ -91,8 +93,8 @@ def select_speed(speed):
             "status": "error", 
             "message": f"Неизвестная команда: {speed}"
         }), 400
-@app.route("/camera/<command>")
-def control_camera(command):
+@app.route("/camera/control")
+def control_camera():
     commands = [
         "cam-stop", 
         "cam-down", 
@@ -100,6 +102,7 @@ def control_camera(command):
         "cam-left", 
         "cam-right"
     ]
+    command = request.args.get('command')
     if command in commands: 
         return jsonify({
             "status": "ok", 
@@ -110,7 +113,7 @@ def control_camera(command):
             "status": "error", 
             "message": f"Неизвестная команда: {command}"
         }), 400
-@app.route('/light/<light_name>')
+@app.route('/car/lights/<name>')
 def turn_lights(name):
     names = [
         "headlights", 
