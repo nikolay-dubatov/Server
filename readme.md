@@ -18,6 +18,7 @@
 - `/car/lights/<name>?state=` Управление фарами
     - name= `headlights` / `hazard_lights` / `parking_lights`
     - state= `on` / `off`
+- `/car/horn` Подача звукового сигнала
 - `/telemetry` Телеметрия <br>
 \-> 
     ``` json

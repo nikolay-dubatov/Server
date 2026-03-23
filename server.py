@@ -134,6 +134,12 @@ def turn_lights(name):
             "status":"error", 
             "message": f"Неизвестная команда: {name}&{state=}"
         }), 400
+@app.route('/car/horn')
+def horn():
+    return jsonify({
+        "status": "ok", 
+        "message": "Гудок"
+    })
 
 
 if __name__ == "__main__":
